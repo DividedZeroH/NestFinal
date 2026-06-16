@@ -1,10 +1,15 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryInput, UpdateCategoryInput } from './category.types';
 import { ProductsService } from '../products/services/products.service';
 import { PaginationParams } from '../common/pagination.types';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { UserRole } from '../users/user-role.enum';
 
 @Controller('categories')
+@UseGuards(JwtAuthGuard)
 export class CategoriesController {
     constructor(
         private readonly categoriesService: CategoriesService,
@@ -12,6 +17,8 @@ export class CategoriesController {
     ) { }
 
     @Post()
+    @UseGuards(RolesGuard)
+    @Roles(UserRole.ADMIN)
     create(@Body() createCategoryInput: CreateCategoryInput) {
         return this.categoriesService.create(createCategoryInput);
     }
@@ -27,11 +34,15 @@ export class CategoriesController {
     }
 
     @Put(':id')
+    @UseGuards(RolesGuard)
+    @Roles(UserRole.ADMIN)
     update(@Param('id') id: string, @Body() updateCategoryInput: UpdateCategoryInput) {
         return this.categoriesService.update(+id, updateCategoryInput);
     }
 
     @Delete(':id')
+    @UseGuards(RolesGuard)
+    @Roles(UserRole.ADMIN)
     remove(@Param('id') id: string) {
         return this.categoriesService.remove(+id);
     }

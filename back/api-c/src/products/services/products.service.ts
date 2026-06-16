@@ -31,9 +31,11 @@ export class ProductsService {
   }
 
   async create(input: CreateProductInput): Promise<Product> {
-    const category = await this.categoriesRepository.findById(input.categoryId);
-    if (!category) {
-      throw new BadRequestException(`Category with ID ${input.categoryId} does not exist`);
+    if (input.categoryId != null) {
+      const category = await this.categoriesRepository.findById(input.categoryId);
+      if (!category) {
+        throw new BadRequestException(`Category with ID ${input.categoryId} does not exist`);
+      }
     }
     return this.productsRepository.create(input);
   }

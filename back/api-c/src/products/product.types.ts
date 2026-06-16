@@ -18,12 +18,12 @@ export class ProductEntity {
   @Column('int', { default: 0 })
   stock!: number;
 
-  @Column('int')
-  categoryId!: number;
+  @Column('int', { nullable: true })
+  categoryId!: number | null;
 
-  @ManyToOne(() => CategoryEntity, { onDelete: 'RESTRICT' })
+  @ManyToOne(() => CategoryEntity, { onDelete: 'RESTRICT', nullable: true })
   @JoinColumn({ name: 'categoryId' })
-  category!: CategoryEntity;
+  category!: CategoryEntity | null;
 }
 
 export interface Product {
@@ -31,13 +31,13 @@ export interface Product {
   name: string;
   price: number;
   stock: number;
-  categoryId: number;
+  categoryId: number | null;
 }
 
 export class CreateProductInput {
   @IsString()
   @MinLength(2)
-  @MaxLength(100)
+  @MaxLength(256)
   name!: string;
 
   @IsNumber()
@@ -45,21 +45,23 @@ export class CreateProductInput {
   @Type(() => Number)
   price!: number;
 
+  @IsOptional()
   @IsInt()
   @Min(0)
   @Type(() => Number)
-  stock!: number;
+  stock?: number;
 
+  @IsOptional()
   @IsInt()
   @Type(() => Number)
-  categoryId!: number;
+  categoryId?: number | null;
 }
 
 export class UpdateProductInput {
   @IsOptional()
   @IsString()
   @MinLength(2)
-  @MaxLength(100)
+  @MaxLength(256)
   name?: string;
 
   @IsOptional()
