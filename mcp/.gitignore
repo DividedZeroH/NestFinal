@@ -1,0 +1,21 @@
+# Compiled output
+/dist
+
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# Environment — never commit secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db

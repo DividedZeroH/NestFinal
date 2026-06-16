@@ -1,0 +1,7 @@
+[
+  { "id": 1, "name": "Usuario Local 1", "email": "local1@example.com" },
+  { "id": 2, "name": "Usuario Local 2", "email": "local2@example.com" },
+  { "id": 3, "name": "Usuario Local 3", "email": "local3@example.com" },
+  { "id": 4, "name": "Usuario Local 4", "email": "local4@example.com" },
+  { "id": 5, "name": "Usuario Local 5", "email": "local5@example.com" }
+]

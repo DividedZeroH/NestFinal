@@ -1,0 +1,19 @@
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200;">
+  <div *ngFor="let toast of toastService.toasts()"
+       class="toast show align-items-center border-0 mb-2"
+       [class.toast-success]="toast.type === 'success'"
+       [class.toast-danger]="toast.type === 'danger'"
+       [class.toast-warning]="toast.type === 'warning'"
+       [class.toast-info]="toast.type === 'info'"
+       role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-body d-flex align-items-center w-100">
+      <i class="bi me-2 fs-5"
+         [class.bi-check-circle-fill]="toast.type === 'success'"
+         [class.bi-exclamation-triangle-fill]="toast.type === 'danger' || toast.type === 'warning'"
+         [class.bi-info-circle-fill]="toast.type === 'info'"></i>
+      <div class="flex-grow-1">{{ toast.message }}</div>
+      <button type="button" class="btn-close ms-2"
+              (click)="toastService.remove(toast.id)" aria-label="Close"></button>
+    </div>
+  </div>
+</div>

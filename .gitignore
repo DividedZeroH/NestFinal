@@ -1,0 +1,37 @@
+# Root-level ignores (each subfolder has its own .gitignore too)
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment — never commit secrets
+.env
+.env.*
+!.env.example
+
+# Compiled / generated
+dist/
+build/
+out-tsc/
+
+# Angular cache
+.angular/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.idea/
+.vscode/
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code internal state
+.claude/
+opencode.json
