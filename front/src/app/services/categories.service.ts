@@ -12,8 +12,8 @@ export class CategoriesService {
 
   findAll(): Observable<Category[]> {
     return this.http
-      .get<{ data: Category[] }>(`${this.api}?limit=50`)
-      .pipe(map((res) => res.data));
+      .get<{ items: Category[] }>(`${this.api}?limit=50`)
+      .pipe(map((res) => res.items));
   }
 
   findOne(id: number): Observable<Category> {

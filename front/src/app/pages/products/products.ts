@@ -59,8 +59,8 @@ export class ProductsPage implements OnInit {
         page: this.page,
         limit: this.limit,
       }));
-      this.products.set(res.data);
-      this.total = res.meta.total;
+      this.products.set(res.items);
+      this.total = res.total;
     } catch {
       this.error = 'Error al cargar productos';
     } finally {
