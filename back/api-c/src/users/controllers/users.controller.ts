@@ -49,7 +49,7 @@ export class UsersController {
   ) {
     const userId = req.user.id || req.user.sub;
     await this.usersService.updatePassword(userId, dto.currentPassword, dto.newPassword);
-    return { message: 'Contraseña actualizada' };
+    return { message: 'Password updated' };
   }
 
   @Patch('users/me/email')
@@ -57,9 +57,9 @@ export class UsersController {
   async updateEmail(
     @Request() req: any,
     @Body() dto: UpdateEmailDto,
-  ): Promise<UserEntity> {
+  ): Promise<{ message: string }> {
     const userId = req.user.id || req.user.sub;
-    const user = await this.usersService.updateEmail(userId, dto.newEmail, dto.currentPassword);
-    return user;
+    await this.usersService.updateEmail(userId, dto.newEmail, dto.password);
+    return { message: 'Email updated' };
   }
 }

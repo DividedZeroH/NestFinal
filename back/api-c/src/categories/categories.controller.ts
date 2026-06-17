@@ -1,8 +1,7 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, UseGuards } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryInput, UpdateCategoryInput } from './category.types';
 import { ProductsService } from '../products/services/products.service';
-import { PaginationParams } from '../common/pagination.types';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
@@ -24,8 +23,8 @@ export class CategoriesController {
     }
 
     @Get()
-    findAll(@Query() params: PaginationParams) {
-        return this.categoriesService.findAll(params);
+    findAll() {
+        return this.categoriesService.findAll();
     }
 
     @Get(':id')

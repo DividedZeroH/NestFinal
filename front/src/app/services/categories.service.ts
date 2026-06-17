@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Category, CreateCategoryDto, UpdateCategoryDto } from '../models/category';
 import { environment } from '../../environments/environment';
 
@@ -11,9 +11,7 @@ export class CategoriesService {
   constructor(private http: HttpClient) {}
 
   findAll(): Observable<Category[]> {
-    return this.http
-      .get<{ items: Category[] }>(`${this.api}?limit=50`)
-      .pipe(map((res) => res.items));
+    return this.http.get<Category[]>(this.api);
   }
 
   findOne(id: number): Observable<Category> {

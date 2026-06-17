@@ -42,7 +42,7 @@ export class PaginationParams {
 
   @IsOptional()
   @IsString()
-  orderBy?: string;
+  sortBy?: string;
 
   @IsOptional()
   @IsString()

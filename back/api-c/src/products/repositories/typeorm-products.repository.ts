@@ -32,8 +32,8 @@ export class TypeOrmProductsRepository
       queryBuilder.andWhere('product.name LIKE :name', { name: `%${params.name}%` });
     }
 
-    if (params.orderBy) {
-      queryBuilder.orderBy(`product.${params.orderBy}`, params.order?.toUpperCase() as 'ASC' | 'DESC' || 'ASC');
+    if (params.sortBy) {
+      queryBuilder.orderBy(`product.${params.sortBy}`, params.order?.toUpperCase() as 'ASC' | 'DESC' || 'ASC');
     }
 
     const [data, total] = await queryBuilder.getManyAndCount();

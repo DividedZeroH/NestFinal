@@ -5,5 +5,5 @@ export class UpdateEmailDto {
   newEmail!: string;
 
   @IsString()
-  currentPassword!: string;
+  password!: string;
 }

@@ -7,12 +7,10 @@ import {
   UpdateCategoryInput,
   CategoryEntity,
 } from './category.types';
-import { PaginatedResult, PaginationParams } from '../common/pagination.types';
-
 export const CATEGORIES_REPOSITORY = 'CATEGORIES_REPOSITORY';
 
 export interface CategoriesRepository {
-  findAll(params: PaginationParams): Promise<PaginatedResult<Category>>;
+  findAll(): Promise<Category[]>;
   findById(id: number): Promise<Category | undefined>;
   create(input: CreateCategoryInput): Promise<Category>;
   update(id: number, input: UpdateCategoryInput): Promise<Category | undefined>;
@@ -27,22 +25,8 @@ export class TypeOrmCategoriesRepository implements CategoriesRepository {
     private repo: Repository<CategoryEntity>
   ) { }
 
-  async findAll(params: PaginationParams): Promise<PaginatedResult<Category>> {
-    const page = Math.max(1, params.page || 1);
-    const limit = Math.min(50, Math.max(1, params.limit || 10));
-    const skip = (page - 1) * limit;
-
-    const [data, total] = await this.repo.findAndCount({
-      skip,
-      take: limit,
-    });
-
-    return new PaginatedResult(data, {
-      page,
-      limit,
-      total,
-      totalPages: Math.ceil(total / limit),
-    });
+  async findAll(): Promise<Category[]> {
+    return this.repo.find({ order: { name: 'ASC' } });
   }
 
   findById(id: number): Promise<Category | undefined> {

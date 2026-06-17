@@ -67,10 +67,8 @@ export class AuthService {
     return this.http.patch<{ message: string }>(`${environment.apiUrl}/users/me/password`, { currentPassword, newPassword });
   }
 
-  updateEmail(newEmail: string, currentPassword: string): Observable<SafeUser> {
-    return this.http.patch<SafeUser>(`${environment.apiUrl}/users/me/email`, { newEmail, currentPassword }).pipe(
-      tap((user) => this.user.set(user)),
-    );
+  updateEmail(newEmail: string, currentPassword: string): Observable<{ message: string }> {
+    return this.http.patch<{ message: string }>(`${environment.apiUrl}/users/me/email`, { newEmail, password: currentPassword });
   }
 
   getToken(): string | null {

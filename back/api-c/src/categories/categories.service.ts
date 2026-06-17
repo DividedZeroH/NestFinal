@@ -1,7 +1,6 @@
 import { Inject, Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { CategoriesRepository, CATEGORIES_REPOSITORY } from './categories.repository';
 import { CreateCategoryInput, Category, UpdateCategoryInput } from './category.types';
-import { PaginationParams } from '../common/pagination.types';
 
 @Injectable()
 export class CategoriesService {
@@ -10,8 +9,8 @@ export class CategoriesService {
         private repo: CategoriesRepository,
     ) { }
 
-    async findAll(params: PaginationParams) {
-        return this.repo.findAll(params);
+    async findAll(): Promise<Category[]> {
+        return this.repo.findAll();
     }
 
     async findById(id: number): Promise<Category> {
@@ -30,7 +29,7 @@ export class CategoriesService {
         return category;
     }
 
-    async remove(id: number): Promise<void> {
+    async remove(id: number): Promise<Category> {
         const category = await this.repo.findById(id);
         if (!category) throw new NotFoundException(`Category with ID ${id} not found`);
 
@@ -40,5 +39,6 @@ export class CategoriesService {
         }
 
         await this.repo.remove(id);
+        return category;
     }
 }
