@@ -64,10 +64,11 @@ export class TypeOrmProductsRepository
   }
 
   async remove(id: number): Promise<Product | undefined> {
-    const product = await this.repo.findOneBy({ id });
+    const product = await this.repo.findOne({ where: { id }, relations: ['category'] });
     if (!product) return undefined;
+    const snapshot = { ...product, id };
     await this.repo.remove(product);
-    return product;
+    return snapshot as Product;
   }
 
   async findByCategory(categoryId: number): Promise<Product[]> {
