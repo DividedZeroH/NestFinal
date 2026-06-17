@@ -30,8 +30,11 @@ export interface QueryProductsDto {
 }
 
 export interface PaginatedProducts {
-  items: Product[];
-  total: number;
-  page: number;
-  limit: number;
+  data: Product[];
+  meta: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
 }
